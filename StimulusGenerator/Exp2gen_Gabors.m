@@ -29,8 +29,8 @@ clear all;
 
 % EXPERIMENTAL STUFF
 
-nP = 1; % number of participants
-nReps = 1; % number of repetitions per trial type
+nP = 20; % number of participants
+nReps = 10; % number of repetitions per trial type
 expNo = 2; % 1 = contrast distractors; 2 = orientation distractors
 
 % trial matrix just for this specific experiment:
@@ -45,7 +45,6 @@ tMat = [
     0,1,1,1
     0,2,2,1
     ];
-tMat = [0,1,0,0];
 % col1 = control; logical, 0 = experimental trial and 1 = control trial
 % col2 = nDistsNearTarg; how many distractors generated near the target?
 % col3 = nDistsNearBacks; how many distractors generated near each selected background gabor
@@ -214,7 +213,7 @@ for trialType = 1:size(tMat,1) % trial matrix loop
                         dOri = datasample(dOriRange,1);
                         propMat(4,dist) = dOri;
                         nearTarg(dist) = 0;
-                        propMat(3,dist) = highContrast; % tester to also make high contrast
+                        % propMat(3,dist) = highContrast; % tester to also make high contrast
                 end
             end
             nearTarg(1) = 1; % so doesn't get picked for distractor generation
@@ -256,7 +255,7 @@ for trialType = 1:size(tMat,1) % trial matrix loop
                             dOri = datasample(dOriRange,1);
                             propMat(4,metaDist) = dOri;
                             nearDist(metaDist) = 0; % can't be selected again
-                            propMat(3,metaDist) = highContrast; % tester to also make high contrast
+                            % propMat(3,metaDist) = highContrast; % tester to also make high contrast
                     end
                 end
             end
@@ -278,7 +277,9 @@ for trialType = 1:size(tMat,1) % trial matrix loop
             % what to save:
             imwrite(imageRGB,[folderName,fileName,'.png']);
             save([folderName,fileName,'.mat'],'gabormat');
-            saveData = [gabLocs;propMat(3:4,:)];
+            distractors = zeros(1,size(gabLocs,2))
+            distractors(distMat) = 1;
+            saveData = [gabLocs;propMat(3:4,:);distractors];
             csvwrite([folderName,fileName,'.csv'],saveData);
             
             Screen('Flip', w);
