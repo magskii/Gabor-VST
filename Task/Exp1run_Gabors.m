@@ -51,7 +51,7 @@ for j = 2:nReps
     tMatSingle(:,5) = j;
     tMat = [tMat;tMatSingle];
 end
-tMat = [tMat,zeros(nTrials*nReps,3);tMat,zeros(nTrials*nReps,3)];
+tMat = [tMat,zeros(nTrials*nReps,3)];
 
 
 % ----------------------------------------------------------------- %

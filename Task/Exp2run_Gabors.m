@@ -14,10 +14,10 @@ clear all;
 
 PN = input('Participant Number: ')
 
-expNo = 1;
+expNo = 2;
 nReps = 10;
-angle1 = 315;
-angle2 = 45;
+angle1 = 45;
+angle2 = 315;
 circSize = 270;
 
 % ----------------------------------------------------------------- %
@@ -51,7 +51,7 @@ for j = 2:nReps
     tMatSingle(:,5) = j;
     tMat = [tMat;tMatSingle];
 end
-tMat = [tMat,zeros(nTrials*nReps,3);tMat,zeros(nTrials*nReps,3)];
+tMat = [tMat,zeros(nTrials*nReps,4)];
 
 
 % ----------------------------------------------------------------- %
@@ -73,26 +73,25 @@ PsychImaging('AddTask', 'General', 'UseRetinaResolution'); % also use entire dis
 
 % ----------------------------------------------------------------- %
 
-deg45 = imread('45.png');
-deg315 = imread('315.png');
+% deg45 = imread('45.png');
+% deg315 = imread('315.png');
 
 
 % EXPERIMENT
 
-for i = 1:2
+for i = 1:1
     
     switch i
         case 1
             angle = angle1;
-            imName = [num2str(angle),'.png'];
-            image = 
             trialBreak = ['one quarter '];
         case 2
             angle = angle2;
             trialBreak = ['three quarters '];
     end
-    
-    Screen('PutImage',w,imName);
+    imName = [num2str(angle),'.png'];
+    image = imread(imName);
+    Screen('PutImage',w,image);
     Screen('TextSize',w,100);
     DrawFormattedText(w,['Find the patch with this orientation:'],'center',(rect(4)/2)-300);
     DrawFormattedText(w,['Press any key to continue.'],'center',(rect(4)/2)+400);
@@ -149,7 +148,7 @@ for i = 1:2
         while (x == width/4) && (y == height/4)
             [x,y,buttons] = GetMouse(w);
         end
-        ShowCursor(2);
+        ShowCursor(0);
         
         % record click co-ordinates
         [clicks,x,y] = GetClicks(w);
@@ -162,6 +161,16 @@ for i = 1:2
         %outputs
         RT = t1-t0;
         acc = tooClose(1,saveData(1:2,1),(circSize/2)-62,0,x,y);
+        
+        distMat = find(saveData(5,:)); % find which patches are distractors
+        for hitDist = 1:size(distMat,2)
+            distAcc = tooClose(1,saveData(1:2,distMat(hitDist)),(circSize/2)-62,0,x,y);
+            if distAcc == 1
+                shuffleMat(j,9) = distMat(hitDist);
+            end
+        end
+        
+        
         shuffleMat(j,7:8) = [RT,acc];
         
         % take a break

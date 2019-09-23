@@ -29,8 +29,8 @@ clear all;
 
 % EXPERIMENTAL STUFF
 
-nP = 20; % number of participants
-nReps = 10; % number of repetitions per trial type
+nP = 1; % number of participants
+nReps = 2; % number of repetitions per trial type
 expNo = 2; % 1 = contrast distractors; 2 = orientation distractors
 
 % trial matrix just for this specific experiment:
