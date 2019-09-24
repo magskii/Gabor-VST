@@ -79,7 +79,7 @@ PsychImaging('AddTask', 'General', 'UseRetinaResolution'); % also use entire dis
 
 % EXPERIMENT
 
-for i = 1:1
+for i = 1:2
     
     switch i
         case 1

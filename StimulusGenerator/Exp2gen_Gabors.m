@@ -30,7 +30,7 @@ clear all;
 % EXPERIMENTAL STUFF
 
 nP = 1; % number of participants
-nReps = 2; % number of repetitions per trial type
+nReps = 10; % number of repetitions per trial type
 expNo = 2; % 1 = contrast distractors; 2 = orientation distractors
 
 % trial matrix just for this specific experiment:
@@ -113,7 +113,7 @@ high = [0,255]; % 1
 lowContrast = (low(2) - low(1)) / (low(1) + low(2)); % 'normal' contrast level
 highContrast = (high(2) - high(1)) / (high(1) + high(2)); % distractor contrast level
 % orientations:
-tOri = 45; % target orientation, i.e. gabor phase, in degrees
+tOri = 315; % target orientation, i.e. gabor phase, in degrees
 backDiff = 40; % minimum orientation difference (degrees) between background gabors and target
 minDistDiff = 20; % minimum orientation difference (degrees) between distractor gabors and target
 maxDistDiff = 25; % maximum orientation difference (degrees) between background gabors and target
